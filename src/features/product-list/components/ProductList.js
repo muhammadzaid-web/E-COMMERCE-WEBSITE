@@ -12,6 +12,7 @@ import {
   MenuButton,
   MenuItem,
   MenuItems,
+  Popover,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -28,109 +29,97 @@ import {
   selectAllProduct,
   fetchAllProductsAsync,
   fetchProductsByFiltersAsync,
+  selectCategories,
+  selectBrands,
+  fetchCategoriesAsync,
+  fetchBrandsAsync,
+  selectTotalItems,
 } from "../ProductListSlice";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc" },
   { name: "Price: Low to High", sort: "price", order: "asc" },
   { name: "Price: High to Low", sort: "price", order: "desc" },
 ];
-const filters = [
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { label: "Beauty", value: "beauty", checked: false },
-      { label: "Fragrances", value: "fragrances", checked: false },
-      { label: "Furniture", value: "furniture", checked: false },
-      { label: "Groceries", value: "groceries", checked: false },
-      { label: "Home Decoration", value: "home-decoration", checked: false },
-      {
-        label: "Kitchen Accessories",
-        value: "kitchen-accessories",
-        checked: false,
-      },
-      { label: "Laptops", value: "laptops", checked: false },
-      { label: "Men's Shirts", value: "mens-shirts", checked: false },
-      { label: "Men's Shoes", value: "mens-shoes", checked: false },
-      { label: "Men's Watches", value: "mens-watches", checked: false },
-      {
-        label: "Mobile Accessories",
-        value: "mobile-accessories",
-        checked: false,
-      },
-    ],
-  },
-  {
-    id: "brand",
-    name: "Brand",
-    options: [
-      { label: "Essence", value: "Essence", checked: false },
-      { label: "Glamour Beauty", value: "Glamour Beauty", checked: false },
-      { label: "Velvet Touch", value: "Velvet Touch", checked: false },
-      { label: "Chic Cosmetics", value: "Chic Cosmetics", checked: false },
-      { label: "Nail Couture", value: "Nail Couture", checked: false },
-      { label: "Calvin Klein", value: "Calvin Klein", checked: false },
-      { label: "Chanel", value: "Chanel", checked: false },
-      { label: "Dior", value: "Dior", checked: false },
-      { label: "Dolce & Gabbana", value: "Dolce & Gabbana", checked: false },
-      { label: "Gucci", value: "Gucci", checked: false },
-      { label: "Annibale Colombo", value: "Annibale Colombo", checked: false },
-      { label: "Furniture Co.", value: "Furniture Co.", checked: false },
-      { label: "Knoll", value: "Knoll", checked: false },
-      { label: "Bath Trends", value: "Bath Trends", checked: false },
-      { label: "Apple", value: "Apple", checked: false },
-      { label: "Asus", value: "Asus", checked: false },
-      { label: "Huawei", value: "Huawei", checked: false },
-      { label: "Lenovo", value: "Lenovo", checked: false },
-      { label: "Dell", value: "Dell", checked: false },
-      { label: "Fashion Trends", value: "Fashion Trends", checked: false },
-      { label: "Gigabyte", value: "Gigabyte", checked: false },
-      { label: "Classic Wear", value: "Classic Wear", checked: false },
-      { label: "Casual Comfort", value: "Casual Comfort", checked: false },
-      { label: "Urban Chic", value: "Urban Chic", checked: false },
-      { label: "Nike", value: "Nike", checked: false },
-      { label: "Puma", value: "Puma", checked: false },
-      { label: "Off White", value: "Off White", checked: false },
-      {
-        label: "Fashion Timepieces",
-        value: "Fashion Timepieces",
-        checked: false,
-      },
-      { label: "Longines", value: "Longines", checked: false },
-      { label: "Rolex", value: "Rolex", checked: false },
-      { label: "Amazon", value: "Amazon", checked: false },
-    ],
-  },
-];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProduct);
+  const totalItems = useSelector(selectTotalItems);
+  const category = useSelector(selectCategories);
+  const brands = useSelector(selectBrands);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
+  const [page, setPage] = useState(1);
+  const filters = [
+    {
+      id: "category",
+      name: "Category",
+      options: category
+    },
+    {
+      id: "brand",
+      name: "Brand",
+      options: brands
+    },
+  ];
 
-  function handleFilter(e, section, option) {
-    const newFilter = { ...filter, [section.id]: option.value };
+  const handleFilter = (e, section, option) => {
+    console.log(e.target.checked);
+    const newFilter = {...filter};
+    if (e.target.checked) {
+      if (newFilter[section.id]) {
+        newFilter[section.id].push(option.value);
+      } else {
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      const index = newFilter[section.id].findIndex(
+        (el) => el === option.value
+      );
+      newFilter[section.id].splice(index, 1);
+    }
+    console.log({ newFilter });
+
     setFilter(newFilter);
-    dispatch(fetchProductsByFiltersAsync(newFilter));
     console.log(section.id, option.value);
-  }
+  };
 
-  function handleSort(e, option) {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
-    setFilter(newFilter);
-    dispatch(fetchProductsByFiltersAsync(newFilter));
-    // console.log(section.id,option.value);
-  }
+  const handleSort = (e, option) => {
+    const sort = { _sort: option.sort, _order: option.order };
+    console.log(sort);
+    setSort(sort);
+  };
+
+  const handlePage = (page) => {
+    if(page == Number){
+      setPage(page);
+    }
+    console.log({page});
+    return;
+  };
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync());
-  }, [dispatch]);
+    const pagination ={_page:page,_limit:ITEMS_PER_PAGE}
+    dispatch(fetchProductsByFiltersAsync({filter,sort,pagination}));
+  }, [dispatch,filter,sort,page]);
+
+  useEffect(()=>{
+    dispatch(fetchBrandsAsync());
+    dispatch(fetchCategoriesAsync());
+  },[dispatch])
+
+  useEffect(()=>{
+    setPage(1)
+  },[totalItems,sort])
 
   return (
     <div className="bg-white">
@@ -142,7 +131,8 @@ export default function ProductList() {
             mobileFiltersOpen={mobileFiltersOpen}
             setMobileFiltersOpen={setMobileFiltersOpen}
             handleSort={handleSort}
-          ></MobileFilter>
+            filters={filters}>
+            </MobileFilter>
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
@@ -211,7 +201,7 @@ export default function ProductList() {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Filters */}
-                <DesktopFilter handleFilter={handleFilter}></DesktopFilter>
+                <DesktopFilter filters={filters} handleFilter={handleFilter}></DesktopFilter>
 
                 {/* Product grid */}
                 <div className="lg:col-span-3 border-t border-gray-200">
@@ -223,7 +213,7 @@ export default function ProductList() {
             </section>
             {/* prdouct filters and product card end here */}
 
-            <Pagination></Pagination>
+            <Pagination handlePage={handlePage} page={page} setPage={setPage}></Pagination>
           </main>
         </div>
       </div>
@@ -232,6 +222,7 @@ export default function ProductList() {
 }
 
 function MobileFilter({
+  filters,
   mobileFiltersOpen,
   setMobileFiltersOpen,
   handleFilter,
@@ -304,7 +295,7 @@ function MobileFilter({
                                 id={`filter-mobile-${section.id}-${optionIdx}`}
                                 name={`${section.id}[]`}
                                 type="checkbox"
-                                onChange={(e) =>
+                                onClick={(e) =>
                                   handleFilter(e, section, option)
                                 }
                                 className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
@@ -351,7 +342,7 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({ handleFilter }) {
+function DesktopFilter({ handleFilter , filters}) {
   return (
     <>
       <form className="hidden lg:block">
@@ -392,7 +383,7 @@ function DesktopFilter({ handleFilter }) {
                           id={`filter-${section.id}-${optionIdx}`}
                           name={`${section.id}[]`}
                           type="checkbox"
-                          onChange={(e) => handleFilter(e, section, option)}
+                          onClick={(e) => handleFilter(e, section, option)}
                           className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                         />
                         <svg
@@ -439,7 +430,7 @@ function ProductGrid({products}) {
     <div className="mx-auto max-w-2xl px-4 lg:pt-6 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 ">
                     <div className=" grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-4">
                       {products.map((product) => (
-                        <Link to="/product-detail">
+                        <Link to={`/product-detail/${product.id}`}>
                           <div
                             key={product.id}
                             className="group border border-gray-300 relative transition-all p-2 hover:scale-105 hover:shadow-md hover:shadow-sky-200 rounded-lg"
@@ -486,30 +477,38 @@ function ProductGrid({products}) {
   </>;
 }
 
-function Pagination() {
+function Pagination({handlePage,page ,setPage, totalItems=100}) {
   return (
     <>
       <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
         <div className="flex flex-1 justify-between sm:hidden">
-          <a
-            href="#"
-            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          <div
+            onClick={(e)=>page>1 ? setPage(page-1) : Popover}
+            className="relative cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Previous
-          </a>
-          <a
-            href="#"
-            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          </div>
+          <div
+            onClick={(e)=>page<10?setPage(page+1): Popover}
+            className="relative cursor-pointer ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Next
-          </a>
+          </div>
         </div>
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <p className="text-sm text-gray-700">
-              Showing <span className="font-medium">1</span> to{" "}
-              <span className="font-medium">10</span> of{" "}
-              <span className="font-medium">97</span> results
+            Showing{' '}
+            <span className="font-medium">
+              {(page - 1) * ITEMS_PER_PAGE + 1}
+            </span>{' '}
+            to{' '}
+            <span className="font-medium">
+              {page * ITEMS_PER_PAGE > totalItems
+                ? totalItems
+                : page * ITEMS_PER_PAGE}
+            </span>{' '}
+            of <span className="font-medium">{totalItems}</span> results
             </p>
           </div>
           <div>
@@ -517,44 +516,38 @@ function Pagination() {
               aria-label="Pagination"
               className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             >
-              <a
-                href="#"
-                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              <div
+                onClick={(e)=>page>1 ? setPage(page-1) : Popover}
+                className="relative cursor-pointer inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Previous</span>
                 <ChevronLeftIcon aria-hidden="true" className="size-5" />
-              </a>
+              </div>
               {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-              <a
-                href="#"
+              
+              {Array.from({ length: Math.ceil(totalItems/ITEMS_PER_PAGE) }).map((el,index)=>
+                <div
+                onClick={(e)=>handlePage(index+1)}
                 aria-current="page"
-                className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className={`relative z-10 inline-flex items-center border border-gray-300 ${index+1===page?'bg-indigo-600 text-white':'bg-white text-gray-600 focus-visible:outline-indigo-600'} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 `}
               >
-                1
-              </a>
-              <a
-                href="#"
-                className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                2
-              </a>
-              <a
-                href="#"
-                className="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
-              >
-                3
-              </a>
-              <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
+                {index+1}
+              </div>
+              )}
+              
+              
+              
+              {/* <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
                 ...
-              </span>
+              </span> */}
 
-              <a
-                href="#"
-                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              <div
+                onClick={(e)=>page<10 ? setPage(page+1) : Popover}
+                className="relative cursor-pointer inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Next</span>
                 <ChevronRightIcon aria-hidden="true" className="size-5" />
-              </a>
+              </div>
             </nav>
           </div>
         </div>

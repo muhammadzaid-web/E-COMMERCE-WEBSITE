@@ -3,6 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { Link } from "react-router";
 import { useState } from "react";
 import { Label } from "@headlessui/react";
+import Navbar from "../features/navbar/Navbar";
 
 const products = [
   {
@@ -92,7 +93,8 @@ function Checkout() {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="mx-auto my-6 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Navbar>
+      <div className="mx-auto my-6 max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="lg:px-20 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
         <div className="lg:col-span-3 mt-10">
           <form className="bg-white p-4">
@@ -470,6 +472,7 @@ function Checkout() {
         </div>
       </div>
     </div>
+    </Navbar>
   );
 }
 

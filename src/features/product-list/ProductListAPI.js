@@ -1,3 +1,19 @@
+export function fetchProductById(id) {
+  return new Promise(async(resolve) =>{
+    //TODO : we will not hard code server here 
+    const response = await fetch('http://localhost:8080/products/'+id);
+    const data = await response.json();
+    resolve({data});
+    console.log(data);
+    
+    console.log(`ID: ${data.id}, Title: ${data.title}, Price: ${data.price} ${data}`);
+    // console.log(`images:${data.images[0]}`);
+    // console.log(`images:${data.thumbnail}`);
+    
+  }
+  )
+}
+
 export function fetchAllProducts() {
   return new Promise(async(resolve) =>{
     //TODO : we will not hard code server here 
@@ -8,17 +24,56 @@ export function fetchAllProducts() {
   )
 }
 
-export function fetchProductsByFilters(filter) {
-    //filter = {category:'electronics'}
-    let quereyString = '';
+export function fetchProductsByFilters(filter,sort,pagination) {
+    //filter= {category:["electronics","fashion"]}
+    //sort= {_sort:"price",_order:"desc"}
+    //pagination= {_page:1,_limit:10}
+
+    //TODO: on server we will support multi values
+    let queryString = '';
     for (let key in filter) {
-        quereyString += `${key}=${filter[key]}&`
+        const categoryValues = filter[key];
+        if(categoryValues.length){
+          const lastCategoryValue = categoryValues[categoryValues.length-1];
+          // queryString += `${key}=${categoryValues.join()}&${key}=${lastCategoryValue}&`;
+          queryString += `${key}=${lastCategoryValue}&`;
     }
+  }
+
+  for(let key in sort){
+    queryString += `${key}=${sort[key]}&`;
+  }
+  console.log(pagination);
+  
+  for(let key in pagination){
+    queryString += `${key}=${pagination[key]}&`;
+  }
+
+  console.log(queryString);
+  
+
   return new Promise(async(resolve) =>{
     //TODO : we will not hard code server here 
-    const response = await fetch('http://localhost:8080/products?'+quereyString);
+    const response = await fetch('http://localhost:8080/products?'+queryString);
     const data = await response.json();
-    resolve({data});
+    const totalItems=await response.headers.get('X-Total-Count');
+    resolve({data:{products:data,totalItems:+totalItems}});
   }
   )
+}
+
+export function fetchCategories() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/category");
+    const data = await response.json();
+    resolve({ data });
+  });
+}
+
+export function fetchBrands() {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/brand");
+    const data = await response.json();
+    resolve({ data });
+  });
 }
