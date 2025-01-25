@@ -77,12 +77,13 @@ export default function ProductDetails() {
                   </li>
                 ))}
               <li className="text-sm">
-                <h1
+                <div
                   aria-current="page"
-                  className="font-medium text-2xl text-gray-800 flex gap-2 items-end"
+                  
                 >
-                  {product.title} <p className="text-gray-600 text-md">presenting by</p> <span className="text-3xl text-cyan-400 text-md">{product.brand}</span>
-                </h1>
+                  <h2 className="font-medium text-2xl text-gray-800 flex gap-2 items-end">{product.title}</h2>
+                   <p className="hide lg:text-gray-600 lg:text-md">presented by <span className="lg:text-3xl text-2xl text-cyan-400 lg:text-md">{product.brand}</span></p>
+                </div>
               </li>
             </ol>
           </nav>
@@ -92,24 +93,24 @@ export default function ProductDetails() {
             <img
               alt={product.title}
               src={product.images[0]}
-              className="hidden size-full bg-gray-200 rounded-lg object-cover lg:block"
+              className="hidden size-full bg-gray-200 hover:scale-105 transition-all rounded-lg object-cover lg:block"
             />
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
               <img
                 alt={product.title}
                 src={product.thumbnail}
-                className="aspect-[3/2]  bg-gray-200 w-full rounded-lg object-cover"
+                className="aspect-[3/2]  bg-gray-200 w-full hover:scale-105 transition-all rounded-lg object-cover"
               />
               <img
                 alt={product.title}
                 src={product.thumbnail}
-                className="aspect-[3/2]  bg-gray-200 w-full rounded-lg object-cover"
+                className="aspect-[3/2]  bg-gray-200 w-full hover:scale-105 transition-all rounded-lg object-cover"
               />
             </div>
             <img
               alt={product.title}
               src={product.images[0]}
-              className="aspect-[4/5]  bg-gray-200 size-full object-cover sm:rounded-lg lg:aspect-auto"
+              className="aspect-[4/5]  bg-gray-200 size-full hover:scale-105 transition-all object-cover sm:rounded-lg lg:aspect-auto"
             />
           </div>
 
@@ -163,6 +164,13 @@ export default function ProductDetails() {
                     {product.rating} out of 5 stars
                   </p>
                 </div>
+                    
+              </div>
+              <div className='flex gap-2 items-center' >
+                <h2 className="p-2 text-md font-bold">Tags</h2>
+                
+                <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-red-500 bg-red-200 rounded-full">{product.tags[0]}</p>
+                <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-green-500 bg-green-200 rounded-full">{product.tags[1]}</p>
               </div>
 
               <form className="mt-10">
@@ -285,17 +293,15 @@ export default function ProductDetails() {
 
               <div className="mt-10">
                 <h3 className="text-sm font-medium text-gray-900">
-                  Highlights
+                  Dimensions
                 </h3>
-
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {product.highlights &&
-                      product.highlights.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
+                    {Object.entries(product.dimensions).map(([key, value]) => (
+                      <li key={key} className="text-gray-400">
+                        <span className="text-gray-600 capitalize">{key}: {value}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
