@@ -13,6 +13,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
+import { selectItem } from "../Cart/CartSlice";
+import { useSelector } from "react-redux";
 
 const user = {
   name: "Tom Cook",
@@ -35,6 +37,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar({ children }) {
+  const items = useSelector(selectItem);
   return (
     <div className="bg-gray-100">
       <div className="min-h-full">
@@ -85,9 +88,9 @@ export default function Navbar({ children }) {
                           className="size-6"
                         />
                       
-                      <span className="absolute -top-[.2rem] left-4 items-center rounded-xl bg-blue-50 px-1 text-[.6rem] font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                        4
-                      </span>
+                      {items.length>0 && <span className="absolute -top-[.2rem] left-4 items-center rounded-xl bg-blue-100 px-1 text-[.6rem] font-medium text-blue-800 ring-1 ring-inset ring-blue-700/10">
+                        {items.length}
+                      </span>}
                     </Link>
                   </button>
 
@@ -186,9 +189,9 @@ export default function Navbar({ children }) {
                     
                       <ShoppingCartIcon aria-hidden="true" className="size-6" />
                     
-                    <span className="absolute -top-[.3rem] left-4 items-center rounded-xl bg-blue-50 px-1 text-[.6rem] font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                      4
-                    </span>
+                    {items.length>0 && <span className="absolute -top-[.3rem] left-4 items-center rounded-xl bg-blue-100 px-1 text-[.6rem] font-medium text-blue-800 ring-1 ring-inset ring-blue-700/10">
+                      {items.length}
+                    </span>}
                 </button>
                   </Link>
               </div>

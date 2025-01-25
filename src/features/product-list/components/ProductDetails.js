@@ -9,6 +9,8 @@ import {
 } from "../ProductListSlice";
 import { useParams } from "react-router-dom";
 import { fetchProductById } from "../ProductListAPI";
+import { addToCartAsync } from "../../Cart/CartSlice";
+import { selectLoggedInUser } from "../../auth/authSlice";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -34,8 +36,15 @@ export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const product = useSelector(selectProduct);
+  const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const params = useParams();
+
+  const handleCart = (e) => {
+    e.preventDefault();
+    dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id }))
+    alert("Successfully added to cart")
+  };
 
   useEffect(
     (id) => {
@@ -77,12 +86,16 @@ export default function ProductDetails() {
                   </li>
                 ))}
               <li className="text-sm">
-                <div
-                  aria-current="page"
-                  
-                >
-                  <h2 className="font-medium text-2xl text-gray-800 flex gap-2 items-end">{product.title}</h2>
-                   <p className="hide lg:text-gray-600 lg:text-md">presented by <span className="lg:text-3xl text-2xl text-cyan-400 lg:text-md">{product.brand}</span></p>
+                <div aria-current="page">
+                  <h2 className="font-medium text-2xl text-gray-800 flex gap-2 items-end">
+                    {product.title}
+                  </h2>
+                  <p className="hide lg:text-gray-600 lg:text-md">
+                    presented by{" "}
+                    <span className="lg:text-3xl text-2xl text-cyan-400 lg:text-md">
+                      {product.brand}
+                    </span>
+                  </p>
                 </div>
               </li>
             </ol>
@@ -138,7 +151,7 @@ export default function ProductDetails() {
                   /-
                 </span>
                 <span className="text-blue-800 mx-2 px-4 py-1 bg-cyan-200 rounded font-bold text-md">
-                   {product.discountPercentage} % off{" "}
+                  {product.discountPercentage} % off{" "}
                 </span>
               </div>
 
@@ -164,13 +177,16 @@ export default function ProductDetails() {
                     {product.rating} out of 5 stars
                   </p>
                 </div>
-                    
               </div>
-              <div className='flex gap-2 items-center' >
+              <div className="flex gap-2 items-center">
                 <h2 className="p-2 text-md font-bold">Tags</h2>
-                
-                <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-red-500 bg-red-200 rounded-full">{product.tags[0]}</p>
-                <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-green-500 bg-green-200 rounded-full">{product.tags[1]}</p>
+
+                {product.tags[0] && <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-red-500 bg-red-200 rounded-full">
+                  {product.tags[0]}
+                </p>}
+                {product.tags[1] && <p className="p-2 text-sm text-white transition-all drop-shadow-md hover:bg-green-500 bg-green-200 rounded-full">
+                  {product.tags[1]}
+                </p>}
               </div>
 
               <form className="mt-10">
@@ -271,6 +287,7 @@ export default function ProductDetails() {
                 </div>
 
                 <button
+                  onClick={handleCart}
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
@@ -299,7 +316,9 @@ export default function ProductDetails() {
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {Object.entries(product.dimensions).map(([key, value]) => (
                       <li key={key} className="text-gray-400">
-                        <span className="text-gray-600 capitalize">{key}: {value}</span>
+                        <span className="text-gray-600 capitalize">
+                          {key}: {value}
+                        </span>
                       </li>
                     ))}
                   </ul>
