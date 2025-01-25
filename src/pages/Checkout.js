@@ -1,8 +1,6 @@
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { Link } from "react-router";
 import { useState } from "react";
-import { Label } from "@headlessui/react";
 import Navbar from "../features/navbar/Navbar";
 
 const products = [

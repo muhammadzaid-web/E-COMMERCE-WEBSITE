@@ -1,11 +1,12 @@
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
-import { createUserAsync } from "../authSlice";
+import { createUserAsync, selectLoggedInUser } from "../authSlice";
 import { useDispatch,useSelector } from "react-redux";
-
+import { Navigate } from "react-router-dom";
 
 
 function Signup() {
+  const user = useSelector(selectLoggedInUser)
   const dispatch = useDispatch();
   const {
     register,
@@ -17,13 +18,16 @@ function Signup() {
 
   return (
     <div>
+      {user && <Navigate to='/' replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <Link to='/'>
           <img
             alt="Your Company"
             src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
             className="mx-auto h-10 w-auto"
           />
+          </Link>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             Create new account
           </h2>

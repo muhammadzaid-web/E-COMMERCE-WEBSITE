@@ -1,7 +1,13 @@
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserAsync, selectError, selectLoggedInUser } from "../authSlice";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
+  const error =useSelector(selectError)
+  const user =useSelector(selectLoggedInUser)
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -10,13 +16,16 @@ export default function Login() {
   } = useForm();
   return (
     <div>
+      {user && <Navigate to='/' replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <Link to='/'>
           <img
             alt="Your Company"
             src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
             className="mx-auto h-10 w-auto"
           />
+          </Link>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             Log in to your account
           </h2>
@@ -26,6 +35,7 @@ export default function Login() {
           <form
             noValidate
             onSubmit={handleSubmit((data) => {
+              dispatch(checkUserAsync({email:data.email,password:data.password}))
               console.log(data);
             })}
             className="space-y-6"
@@ -41,7 +51,11 @@ export default function Login() {
                 <input
                   id="email"
                   {...register("email", {
-                    required: "ERROR: password is required",
+                    required: "ERROR: email is required",
+                    pattern: {
+                      value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                      message: "email not valid",
+                    },
                   })}
                   type="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -73,7 +87,7 @@ export default function Login() {
                 <input
                   id="password"
                   {...register("password", {
-                    required: "ERROR: password is required",
+                    required: "ERROR: password is required"
                   })}
                   type="password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -81,6 +95,11 @@ export default function Login() {
                 {errors.password && (
                   <p className="text-xs text-red-500">
                     {errors.password.message}
+                  </p>
+                )}
+                {error && (
+                  <p className="text-xs text-red-500">
+                    {error.message}
                   </p>
                 )}
               </div>
