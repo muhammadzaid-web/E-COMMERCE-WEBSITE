@@ -43,11 +43,9 @@ const sortOptions = [
   { name: "Price: High to Low", sort: "price", order: "desc" },
 ];
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -63,18 +61,18 @@ export default function ProductList() {
     {
       id: "category",
       name: "Category",
-      options: category
+      options: category,
     },
     {
       id: "brand",
       name: "Brand",
-      options: brands
+      options: brands,
     },
   ];
 
   const handleFilter = (e, section, option) => {
     console.log(e.target.checked);
-    const newFilter = {...filter};
+    const newFilter = { ...filter };
     if (e.target.checked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);
@@ -100,26 +98,26 @@ export default function ProductList() {
   };
 
   const handlePage = (page) => {
-    if(page == Number){
+    if (page == Number) {
       setPage(page);
     }
-    console.log({page});
+    console.log({ page });
     return;
   };
 
   useEffect(() => {
-    const pagination ={_page:page,_limit:ITEMS_PER_PAGE}
-    dispatch(fetchProductsByFiltersAsync({filter,sort,pagination}));
-  }, [dispatch,filter,sort,page]);
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+  }, [dispatch, filter, sort, page]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchBrandsAsync());
     dispatch(fetchCategoriesAsync());
-  },[dispatch])
+  }, [dispatch]);
 
-  useEffect(()=>{
-    setPage(1)
-  },[totalItems,sort])
+  useEffect(() => {
+    setPage(1);
+  }, [totalItems, sort]);
 
   return (
     <div className="bg-white">
@@ -131,8 +129,8 @@ export default function ProductList() {
             mobileFiltersOpen={mobileFiltersOpen}
             setMobileFiltersOpen={setMobileFiltersOpen}
             handleSort={handleSort}
-            filters={filters}>
-            </MobileFilter>
+            filters={filters}
+          ></MobileFilter>
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
@@ -201,7 +199,10 @@ export default function ProductList() {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Filters */}
-                <DesktopFilter filters={filters} handleFilter={handleFilter}></DesktopFilter>
+                <DesktopFilter
+                  filters={filters}
+                  handleFilter={handleFilter}
+                ></DesktopFilter>
 
                 {/* Product grid */}
                 <div className="lg:col-span-3 border-t border-gray-200">
@@ -213,7 +214,11 @@ export default function ProductList() {
             </section>
             {/* prdouct filters and product card end here */}
 
-            <Pagination handlePage={handlePage} page={page} setPage={setPage}></Pagination>
+            <Pagination
+              handlePage={handlePage}
+              page={page}
+              setPage={setPage}
+            ></Pagination>
           </main>
         </div>
       </div>
@@ -226,7 +231,7 @@ function MobileFilter({
   mobileFiltersOpen,
   setMobileFiltersOpen,
   handleFilter,
-  handleSort
+  handleSort,
 }) {
   return (
     <>
@@ -342,7 +347,7 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({ handleFilter , filters}) {
+function DesktopFilter({ handleFilter, filters }) {
   return (
     <>
       <form className="hidden lg:block">
@@ -425,71 +430,69 @@ function DesktopFilter({ handleFilter , filters}) {
   );
 }
 
-function ProductGrid({products}) {
-  return <>
-    <div className="mx-auto max-w-2xl px-4 lg:pt-6 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 ">
-                    <div className=" grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-4">
-                      {products.map((product) => (
-                        <Link to={`/product-detail/${product.id}`}>
-                          <div
-                            key={product.id}
-                            className="group border border-gray-300 relative transition-all p-2 hover:scale-105 hover:shadow-md hover:shadow-sky-200 rounded-lg"
-                          >
-                            <img
-                              alt={product.imageAlt}
-                              src={product.thumbnail}
-                              className="aspect-square w-full rounded-md border border-gray-300 bg-gray-200 drop-shadow object-cover group-hover:opacity-75 group-hover:bg-blue-200 lg:aspect-auto lg:h-60"
-                            />
-                            <div className="mt-4 flex px-2 justify-between">
-                              <div>
-                                <h3 className="text-sm font-semibold text-gray-700">
-                                  {product.title}
-                                </h3>
-                                <p className="mt-1 py-4 text-sm align-bottom flex gap-1">
-                                  <span className="text-gray-600">
-                                    Rating:{" "}
-                                  </span>
-                                  {product.rating || "N/A"}
-                                  <StarIcon className="w-3 align-bottom text-yellow-500 inline" />
-                                </p>
-                              </div>
-                              <div className="text-sm font-medium text-gray-700">
-                                <p className="text-sm font-medium text-gray-900">
-                                  $
-                                  {Math.round(
-                                    product.price -
-                                      (product.price *
-                                        product.discountPercentage) /
-                                        100
-                                  )}
-                                  /-
-                                </p>
-                                <span className="line-through text-xs">
-                                  ${product.price}/-
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+function ProductGrid({ products }) {
+  return (
+    <>
+      <div className="mx-auto max-w-2xl px-4 lg:pt-6 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 ">
+        <div className=" grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-4">
+          {products.map((product,index) => (
+            <Link to={`/product-detail/${product.id}`}>
+              <div
+                key={index}
+                className="group border border-gray-300 relative transition-all p-2 hover:scale-105 hover:shadow-md hover:shadow-sky-200 rounded-lg"
+              >
+                <img
+                  alt={product.imageAlt}
+                  src={product.thumbnail}
+                  className="aspect-square w-full rounded-md border border-gray-300 bg-gray-200 drop-shadow object-cover group-hover:opacity-75 group-hover:bg-blue-200 lg:aspect-auto lg:h-60"
+                />
+                <div className="mt-4 flex px-2 justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">
+                      {product.title}
+                    </h3>
+                    <p className="mt-1 py-4 text-sm align-bottom flex gap-1">
+                      <span className="text-gray-600">Rating: </span>
+                      {product.rating || "N/A"}
+                      <StarIcon className="w-3 align-bottom text-yellow-500 inline" />
+                    </p>
                   </div>
-  </>;
+                  <div className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium text-gray-900">
+                      $
+                      {Math.round(
+                        product.price -
+                          (product.price * product.discountPercentage) / 100
+                      )}
+                      /-
+                    </p>
+                    <span className="line-through text-xs">
+                      ${product.price}/-
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
 
-function Pagination({handlePage,page ,setPage, totalItems=100}) {
+function Pagination({ handlePage, page, setPage, totalItems = 100 }) {
   return (
     <>
       <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
         <div className="flex flex-1 justify-between sm:hidden">
           <div
-            onClick={(e)=>page>1 ? setPage(page-1) : Popover}
+            // onClick={(e) => (page > 1 ? setPage(page - 1) : Popover)}
             className="relative cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Previous
           </div>
           <div
-            onClick={(e)=>page<10?setPage(page+1): Popover}
+            // onClick={(e) => (page < 10 ? setPage(page + 1) : Popover)}
             className="relative cursor-pointer ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Next
@@ -498,17 +501,17 @@ function Pagination({handlePage,page ,setPage, totalItems=100}) {
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
             <p className="text-sm text-gray-700">
-            Showing{' '}
-            <span className="font-medium">
-              {(page - 1) * ITEMS_PER_PAGE + 1}
-            </span>{' '}
-            to{' '}
-            <span className="font-medium">
-              {page * ITEMS_PER_PAGE > totalItems
-                ? totalItems
-                : page * ITEMS_PER_PAGE}
-            </span>{' '}
-            of <span className="font-medium">{totalItems}</span> results
+              Showing{" "}
+              <span className="font-medium">
+                {(page - 1) * ITEMS_PER_PAGE + 1}
+              </span>{" "}
+              to{" "}
+              <span className="font-medium">
+                {page * ITEMS_PER_PAGE > totalItems
+                  ? totalItems
+                  : page * ITEMS_PER_PAGE}
+              </span>{" "}
+              of <span className="font-medium">{totalItems}</span> results
             </p>
           </div>
           <div>
@@ -517,32 +520,36 @@ function Pagination({handlePage,page ,setPage, totalItems=100}) {
               className="isolate inline-flex -space-x-px rounded-md shadow-sm"
             >
               <div
-                onClick={(e)=>page>1 ? setPage(page-1) : Popover}
+                // onClick={(e) => (page > 1 ? setPage(page - 1) : Popover)}
                 className="relative cursor-pointer inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Previous</span>
                 <ChevronLeftIcon aria-hidden="true" className="size-5" />
               </div>
               {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-              
-              {Array.from({ length: Math.ceil(totalItems/ITEMS_PER_PAGE) }).map((index)=>
+
+              {Array.from({
+                length: Math.ceil(totalItems / ITEMS_PER_PAGE),
+              }).map((index) => (
                 <div
-                onClick={(e)=>handlePage(index+1)}
-                aria-current="page"
-                className={`relative z-10 inline-flex items-center border border-gray-300 ${index+1===page?'bg-indigo-600 text-white':'bg-white text-gray-600 focus-visible:outline-indigo-600'} px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 `}
-              >
-                {index+1}
-              </div>
-              )}
-              
-              
-              
+                  // onClick={(e) => handlePage(index + 1)}
+                  aria-current="page"
+                  className={`relative z-10 inline-flex items-center border border-gray-300 ${
+                    index + 1 === page
+                      ? "bg-indigo-600 text-white"
+                      : "bg-white text-gray-600 focus-visible:outline-indigo-600"
+                  } px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 `}
+                >
+                  {index + 1}
+                </div>
+              ))}
+
               {/* <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
                 ...
               </span> */}
 
               <div
-                onClick={(e)=>page<10 ? setPage(page+1) : Popover}
+                // onClick={(e) => (page < 10 ? setPage(page + 1) : Popover)}
                 className="relative cursor-pointer inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               >
                 <span className="sr-only">Next</span>

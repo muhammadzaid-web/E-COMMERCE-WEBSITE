@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
 import { deleteItemFromCartAsync, selectItem, updateCartAsync, updateItemsAsync } from "./CartSlice"
+import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Cart() {
-
+  
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItem);
@@ -15,18 +17,31 @@ export default function Cart() {
     0
   ));
   const cartItems = items.reduce((total, item) => item.quantity + total, 0);
-
+  
+  const deleteFromCartNotify= () => {
+    toast.success("Successfully Removed .", {
+      position:"top-right",
+      autoClose: 3000, // time in milliseconds
+    });
+  };
+  const quantityFromCartNotify= () => {
+    toast.success("Successfully Changed Quantity .", {
+      position:"top-right",
+      autoClose: 3000, // time in milliseconds
+    });
+  };
   const handleQuantity = (e, item) => {
     dispatch(updateCartAsync({ ...item, quantity: + e.target.value }));
-    alert(" quantity changed successfully from "+item.quantity +" to " + e.target.value )
+    quantityFromCartNotify()
   };
   const handleRemove = (e,id) => {
-    alert(`product deleted successfully from cart`)
     dispatch(deleteItemFromCartAsync(id))
+    deleteFromCartNotify();
   };
 
   return (
     <>
+    {!items.length && <Navigate to='/' replace={true}></Navigate>}
     <div className="bg-white mt-10 mx-auto max-w-5xl px-4  sm:px-6 lg:px-8">
       <div className="mt-8 px-4 py-6 sm:px-6">
         <h1 className="text-4xl mb-4 font-bold tracking-tight text-gray-900">

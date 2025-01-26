@@ -10,13 +10,18 @@ import Protected from "./features/auth/components/Protected";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsByUserIdAsync } from "./features/Cart/CartSlice";
 import { selectLoggedInUser } from "./features/auth/authSlice";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
+// Define routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Protected>
-      <Home></Home>
-    </Protected>,
+    element: (
+      <Protected>
+        <Home />
+      </Protected>
+    ),
   },
   {
     path: "/login",
@@ -28,36 +33,43 @@ const router = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: <Protected>
-      <CartPage></CartPage>
-    </Protected>,
+    element: (
+      <Protected>
+        <CartPage />
+      </Protected>
+    ),
   },
   {
     path: "/checkout",
-    element: <Protected>
-      <Checkout></Checkout>
-    </Protected>,
+    element: (
+      <Protected>
+        <Checkout />
+      </Protected>
+    ),
   },
   {
     path: "/product-detail/:id",
     element: (
       <Protected>
-        <ProductDetailPage></ProductDetailPage>
+        <ProductDetailPage />
       </Protected>
     ),
   },
 ]);
 
 function App() {
-  const user =useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    if(user){
-      dispatch((fetchItemsByUserIdAsync(user.id)))
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchItemsByUserIdAsync(user.id));
     }
-  },[dispatch,user])
+  }, [dispatch, user]);
+
   return (
-    <div className="App ">
+    <div className="App">
+      <ToastContainer />
       <RouterProvider router={router} />
     </div>
   );

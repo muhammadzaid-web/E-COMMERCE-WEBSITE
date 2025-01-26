@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 import { fetchProductById } from "../ProductListAPI";
 import { addToCartAsync } from "../../Cart/CartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
+// import { ToastContainer,toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const colors = [
   { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -39,15 +41,26 @@ export default function ProductDetails() {
   const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const params = useParams();
+  // const addToCartNotify =()=>toast("Successfully Added To Cart")
 
+
+  const addToCartNotify = () => {
+    toast.success(" Success! Operation completed.", {
+      position:"top-right",
+      autoClose: 3000, // time in milliseconds
+    });
+  };
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id }))
-    alert("Successfully added to cart")
+    const newItem ={...product, quantity:1,user:user.id}
+    delete newItem['id']
+    dispatch(addToCartAsync(newItem))
+    addToCartNotify();
+    // alert("Successfully added to cart")
   };
 
   useEffect(
-    (id) => {
+    () => {
       dispatch(fetchProductByIdAsync(params.id));
     },
     [dispatch, params.id]
@@ -145,13 +158,13 @@ export default function ProductDetails() {
                 <span className="text-lg line-through font-medium text-gray-500">
                   $
                   {Math.round(
-                    product.price -
+                    product.price +
                       (product.price * product.discountPercentage) / 100
                   )}
                   /-
                 </span>
                 <span className="text-blue-800 mx-2 px-4 py-1 bg-cyan-200 rounded font-bold text-md">
-                  {product.discountPercentage} % off{" "}
+                  {Math.round(product.discountPercentage)} % off{" "}
                 </span>
               </div>
 
