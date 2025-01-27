@@ -14,13 +14,15 @@ import {
   selectLoggedInUser,
   updateUserAsync,
 } from "../features/auth/authSlice";
-import { createOrderAsync } from "../features/order/OrderSlice";
+import { createOrderAsync, selectCurrentOrder } from "../features/order/OrderSlice";
 import { selectTotalItems } from "../features/product-list/ProductListSlice";
+import { selectUserInfo } from "../features/user/UserSlice";
 
 function Checkout() {
   const [open, setOpen] = useState(true);
   const items = useSelector(selectItem);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
+  const currentOrder = useSelector(selectCurrentOrder);
   const [selectedPayment, setSelectedPayment] = useState("cash");
   const [selectedAddress, setSelectedAddress] = useState(null);
   const totalAmount = Math.round(
@@ -38,7 +40,7 @@ function Checkout() {
   useEffect(() => {
     console.log("Selected Address: ", selectedAddress);
     console.log("Payment Method Updated:", selectedPayment);
-}, [selectedPayment,selectedAddress]);
+  }, [selectedPayment, selectedAddress]);
 
   const deleteFromCartNotify = () => {
     toast.success("Successfully Removed .", {
@@ -70,14 +72,34 @@ function Checkout() {
     setSelectedPayment(e.target.value); // Update payment method
   };
 
-  const handleOrder=(e)=>{
-    const order = {items,totalAmount,cartItems,user,selectedAddress,selectedPayment}
-    dispatch(createOrderAsync(order))
-  }
+  const handleOrder = (e) => {
+    if(selectedAddress && selectedPayment){
+    const order = {
+      items,
+      totalAmount,
+      cartItems,
+      user,
+      selectedAddress,
+      selectedPayment,
+      status:'pending',
+    };
+    dispatch(createOrderAsync(order));
+    toast.success(" Order Successfully Placed ",{
+      position:"top-center",
+      autoclose:2500,
+    })
+    }else{
+      toast.warning("Enter Your Address & Payment Method", {
+        position: "top-center",
+        autoClose: 2500, // time in milliseconds
+      });
+    }
+  };
 
   return (
-    <Navbar>
+    <Navbar title='Checkout'>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto my-6 max-w-7xl sm:px-6 lg:px-4">
         <div className="lg:px-20 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3 shadow-md mt-10">

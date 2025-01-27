@@ -4,7 +4,7 @@ import ProductList from "../features/product-list/components/ProductList";
 function Home() {
     return ( 
         <div>
-            <Navbar>
+            <Navbar title="E-commerce">
                 <ProductList></ProductList>
             </Navbar>
         </div>

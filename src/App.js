@@ -12,7 +12,12 @@ import { fetchItemsByUserIdAsync } from "./features/Cart/CartSlice";
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import PageNotFound from "./pages/PageNotFound";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
+import UserOrders from './features/user/components/UserOrders';
+import UserOrdersPage from './pages/UserOrdersPage';
+import UserProfilePage from "./pages/UserProfilePage";
+import { fetchLoggedInUserAsync } from "./features/user/UserSlice";
 // Define routes
 const router = createBrowserRouter([
   {
@@ -55,6 +60,33 @@ const router = createBrowserRouter([
       </Protected>
     ),
   },
+  {
+    path: "*",
+    element: <PageNotFound />,
+  },
+  {
+    path: '/profile',
+    element: (
+      <Protected>
+        <UserProfilePage/>
+      </Protected>
+    ),
+  },
+  {
+    path: '/orders',
+    element: (
+      <Protected>
+        <UserOrdersPage/>
+      </Protected>
+      // we will add Page later right now using component directly.
+    ),
+  },
+  {
+    path: "order-success/:id",
+    element: <Protected>
+    <OrderSuccessPage />,
+    </Protected>
+  },
 ]);
 
 function App() {
@@ -64,6 +96,7 @@ function App() {
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch((fetchLoggedInUserAsync(user.id)))
     }
   }, [dispatch, user]);
 

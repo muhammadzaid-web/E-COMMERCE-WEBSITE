@@ -44,9 +44,6 @@ export default function Cart() {
     {!items.length && <Navigate to='/' replace={true}></Navigate>}
     <div className="bg-white mt-10 mx-auto max-w-5xl px-4  sm:px-6 lg:px-8">
       <div className="mt-8 px-4 py-6 sm:px-6">
-        <h1 className="text-4xl mb-4 font-bold tracking-tight text-gray-900">
-          Cart
-        </h1>
         <div className="flow-root">
           <ul role="list" className="-my-6 divide-y divide-gray-200">
             {items.map((item) => (

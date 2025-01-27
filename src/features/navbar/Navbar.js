@@ -27,8 +27,8 @@ const navigation = [
   { name: "Team", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", link: "/" },
-  { name: "Settings", link: "/" },
+  { name: 'Your Profile', link: '/profile' },
+  { name: 'My Orders', link: '/orders' },
   { name: "Sign out", link: "/login" },
 ];
 
@@ -36,7 +36,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ children }) {
+export default function Navbar({ children,title }) {
   const items = useSelector(selectItem);
   return (
     <div className="bg-gray-100">
@@ -214,7 +214,7 @@ export default function Navbar({ children }) {
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              E-Commerce
+              {title}
             </h1>
           </div>
         </header>
