@@ -6279,6 +6279,15 @@
           "city": "saharanpur",
           "state": "U.P.",
           "pinCode": "247001"
+        },
+        {
+          "name": "saif",
+          "email": "saif@gmial.com",
+          "city": "saifpur",
+          "state": "S.F.",
+          "pinCode": "657483",
+          "phone": "1029384756",
+          "street": "saifii street"
         }
       ]
     },
@@ -6299,70 +6308,7 @@
       ]
     }
   ],
-  "cart": [
-    {
-      "id": "2702",
-      "title": "Eyeshadow Palette with Mirror",
-      "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-      "category": "beauty",
-      "price": 19.99,
-      "discountPercentage": 5.5,
-      "rating": 3.28,
-      "stock": 44,
-      "tags": [
-        "beauty",
-        "eyeshadow"
-      ],
-      "brand": "Glamour Beauty",
-      "sku": "MVCFH27F",
-      "weight": 3,
-      "dimensions": {
-        "width": 12.42,
-        "height": 8.63,
-        "depth": 29.13
-      },
-      "warrantyInformation": "1 year warranty",
-      "shippingInformation": "Ships in 2 weeks",
-      "availabilityStatus": "In Stock",
-      "reviews": [
-        {
-          "rating": 4,
-          "comment": "Very satisfied!",
-          "date": "2024-05-23T08:56:21.618Z",
-          "reviewerName": "Liam Garcia",
-          "reviewerEmail": "liam.garcia@x.dummyjson.com"
-        },
-        {
-          "rating": 1,
-          "comment": "Very disappointed!",
-          "date": "2024-05-23T08:56:21.618Z",
-          "reviewerName": "Nora Russell",
-          "reviewerEmail": "nora.russell@x.dummyjson.com"
-        },
-        {
-          "rating": 5,
-          "comment": "Highly impressed!",
-          "date": "2024-05-23T08:56:21.618Z",
-          "reviewerName": "Elena Baker",
-          "reviewerEmail": "elena.baker@x.dummyjson.com"
-        }
-      ],
-      "returnPolicy": "30 days return policy",
-      "minimumOrderQuantity": 32,
-      "meta": {
-        "createdAt": "2024-05-23T08:56:21.618Z",
-        "updatedAt": "2024-05-23T08:56:21.618Z",
-        "barcode": "2817839095220",
-        "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
-      },
-      "images": [
-        "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
-      ],
-      "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png",
-      "quantity": 1,
-      "user": "b3be"
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "id": "5529",
@@ -6556,6 +6502,336 @@
         "pinCode": "247001"
       },
       "selectedPayment": "card",
+      "status": "pending"
+    },
+    {
+      "id": "dfa5",
+      "items": [
+        {
+          "id": "2702",
+          "title": "Eyeshadow Palette with Mirror",
+          "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+          "category": "beauty",
+          "price": 19.99,
+          "discountPercentage": 5.5,
+          "rating": 3.28,
+          "stock": 44,
+          "tags": [
+            "beauty",
+            "eyeshadow"
+          ],
+          "brand": "Glamour Beauty",
+          "sku": "MVCFH27F",
+          "weight": 3,
+          "dimensions": {
+            "width": 12.42,
+            "height": 8.63,
+            "depth": 29.13
+          },
+          "warrantyInformation": "1 year warranty",
+          "shippingInformation": "Ships in 2 weeks",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 4,
+              "comment": "Very satisfied!",
+              "date": "2024-05-23T08:56:21.618Z",
+              "reviewerName": "Liam Garcia",
+              "reviewerEmail": "liam.garcia@x.dummyjson.com"
+            },
+            {
+              "rating": 1,
+              "comment": "Very disappointed!",
+              "date": "2024-05-23T08:56:21.618Z",
+              "reviewerName": "Nora Russell",
+              "reviewerEmail": "nora.russell@x.dummyjson.com"
+            },
+            {
+              "rating": 5,
+              "comment": "Highly impressed!",
+              "date": "2024-05-23T08:56:21.618Z",
+              "reviewerName": "Elena Baker",
+              "reviewerEmail": "elena.baker@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "30 days return policy",
+          "minimumOrderQuantity": 32,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.618Z",
+            "updatedAt": "2024-05-23T08:56:21.618Z",
+            "barcode": "2817839095220",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png",
+          "quantity": 3,
+          "user": "b3be"
+        },
+        {
+          "id": "27b4",
+          "title": "Annibale Colombo Sofa",
+          "description": "The Annibale Colombo Sofa is a sophisticated and comfortable seating option, featuring exquisite design and premium upholstery for your living room.",
+          "category": "furniture",
+          "price": 2499.99,
+          "discountPercentage": 18.54,
+          "rating": 3.08,
+          "stock": 16,
+          "tags": [
+            "furniture",
+            "sofas"
+          ],
+          "brand": "Annibale Colombo",
+          "sku": "LUU95CQP",
+          "weight": 3,
+          "dimensions": {
+            "width": 20.97,
+            "height": 19.11,
+            "depth": 25.81
+          },
+          "warrantyInformation": "1 month warranty",
+          "shippingInformation": "Ships overnight",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 5,
+              "comment": "Very satisfied!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Tyler Davis",
+              "reviewerEmail": "tyler.davis@x.dummyjson.com"
+            },
+            {
+              "rating": 5,
+              "comment": "Excellent quality!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Hannah Robinson",
+              "reviewerEmail": "hannah.robinson@x.dummyjson.com"
+            },
+            {
+              "rating": 3,
+              "comment": "Waste of money!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Madison Collins",
+              "reviewerEmail": "madison.collins@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "7 days return policy",
+          "minimumOrderQuantity": 1,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.620Z",
+            "updatedAt": "2024-05-23T08:56:21.620Z",
+            "barcode": "0426785817074",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/1.png",
+            "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/2.png",
+            "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/3.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/thumbnail.png",
+          "quantity": 1,
+          "user": "b3be"
+        }
+      ],
+      "totalAmount": 2560,
+      "cartItems": 4,
+      "user": {
+        "id": "b3be",
+        "email": "zaidmalik8655@gmail.com",
+        "password": "asAS12!@",
+        "addresses": [
+          {
+            "name": "Mohd Zaid",
+            "email": "zaidmalik8655@gmail.com",
+            "phone": "1235467890",
+            "street": "abc street",
+            "city": "saharanpur",
+            "state": "U.P.",
+            "pinCode": "247001"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "Mohd Zaid",
+        "email": "zaidmalik8655@gmail.com",
+        "phone": "1235467890",
+        "street": "abc street",
+        "city": "saharanpur",
+        "state": "U.P.",
+        "pinCode": "247001"
+      },
+      "selectedPayment": "card",
+      "status": "pending"
+    },
+    {
+      "id": "de47",
+      "items": [
+        {
+          "id": "5faf",
+          "title": "Amazon Echo Plus",
+          "description": "The Amazon Echo Plus is a smart speaker with built-in Alexa voice control. It features premium sound quality and serves as a hub for controlling smart home devices.",
+          "category": "mobile-accessories",
+          "price": 99.99,
+          "discountPercentage": 16.3,
+          "rating": 3.52,
+          "stock": 50,
+          "tags": [
+            "electronics",
+            "smart speakers"
+          ],
+          "brand": "Amazon",
+          "sku": "YHLK4W9V",
+          "weight": 7,
+          "dimensions": {
+            "width": 8.1,
+            "height": 7.74,
+            "depth": 5.68
+          },
+          "warrantyInformation": "1 month warranty",
+          "shippingInformation": "Ships in 1 week",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 4,
+              "comment": "Highly recommended!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Nora Mills",
+              "reviewerEmail": "nora.mills@x.dummyjson.com"
+            },
+            {
+              "rating": 4,
+              "comment": "Fast shipping!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Ava Taylor",
+              "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            },
+            {
+              "rating": 4,
+              "comment": "Very pleased!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Aria Flores",
+              "reviewerEmail": "aria.flores@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "90 days return policy",
+          "minimumOrderQuantity": 1,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.624Z",
+            "updatedAt": "2024-05-23T08:56:21.624Z",
+            "barcode": "0697313083842",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/mobile-accessories/Amazon%20Echo%20Plus/1.png",
+            "https://cdn.dummyjson.com/products/images/mobile-accessories/Amazon%20Echo%20Plus/2.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Amazon%20Echo%20Plus/thumbnail.png",
+          "quantity": 1,
+          "user": "b3be"
+        },
+        {
+          "id": "4334",
+          "title": "Apple Airpods",
+          "description": "The Apple Airpods offer a seamless wireless audio experience. With easy pairing, high-quality sound, and Siri integration, they are perfect for on-the-go listening.",
+          "category": "mobile-accessories",
+          "price": 129.99,
+          "discountPercentage": 4.82,
+          "rating": 4.38,
+          "stock": 93,
+          "tags": [
+            "electronics",
+            "wireless earphones"
+          ],
+          "brand": "Apple",
+          "sku": "H76W8TSP",
+          "weight": 3,
+          "dimensions": {
+            "width": 22.62,
+            "height": 9.92,
+            "depth": 18.15
+          },
+          "warrantyInformation": "No warranty",
+          "shippingInformation": "Ships in 3-5 business days",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 3,
+              "comment": "Waste of money!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Aaliyah Hanson",
+              "reviewerEmail": "aaliyah.hanson@x.dummyjson.com"
+            },
+            {
+              "rating": 2,
+              "comment": "Waste of money!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Leah Gutierrez",
+              "reviewerEmail": "leah.gutierrez@x.dummyjson.com"
+            },
+            {
+              "rating": 3,
+              "comment": "Not worth the price!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Jace Smith",
+              "reviewerEmail": "jace.smith@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "60 days return policy",
+          "minimumOrderQuantity": 3,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.624Z",
+            "updatedAt": "2024-05-23T08:56:21.624Z",
+            "barcode": "3925144121840",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/1.png",
+            "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/2.png",
+            "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/3.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png",
+          "quantity": 1,
+          "user": "b3be"
+        }
+      ],
+      "totalAmount": 230,
+      "cartItems": 2,
+      "user": {
+        "id": "b3be",
+        "email": "zaidmalik8655@gmail.com",
+        "password": "asAS12!@",
+        "addresses": [
+          {
+            "name": "Mohd Zaid",
+            "email": "zaidmalik8655@gmail.com",
+            "phone": "1235467890",
+            "street": "abc street",
+            "city": "saharanpur",
+            "state": "U.P.",
+            "pinCode": "247001"
+          },
+          {
+            "name": "saif",
+            "email": "saif@gmial.com",
+            "city": "saifpur",
+            "state": "S.F.",
+            "pinCode": "657483",
+            "phone": "1029384756",
+            "street": "saifii street"
+          }
+        ]
+      },
+      "selectedAddress": {
+        "name": "saif",
+        "email": "saif@gmial.com",
+        "city": "saifpur",
+        "state": "S.F.",
+        "pinCode": "657483",
+        "phone": "1029384756",
+        "street": "saifii street"
+      },
+      "selectedPayment": "cash",
       "status": "pending"
     }
   ]

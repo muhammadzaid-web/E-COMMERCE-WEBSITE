@@ -8,9 +8,13 @@ export default function UserOrders() {
   const orders = useSelector(selectUserOrders);
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync(user.id));
-  }, []);
+  }, [user]);
+  console.log(user);
+  console.log(orders);
+  
   return (
     <div>
+      
       {orders.map((order) => (
          <div>
 <div>

@@ -17,9 +17,11 @@ function Signup() {
 
 
   return (
-    <div>
+    <div className="">
       {user && <Navigate to='/' replace={true}></Navigate>}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8 ">
+        <div className="sm:px-auto sm:w-full sm:max-w-sm lg:w-md  backdrop-filter-blur bg-black/10 p-4 rounded-3xl">
+          
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Link to='/'>
           <img
@@ -35,7 +37,7 @@ function Signup() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
-            // noValidate
+            noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(createUserAsync({email:data.email, password:data.password,addresses:[]}))
               console.log(data);
@@ -148,6 +150,8 @@ function Signup() {
               Log in to your account
             </Link>
           </p>
+        </div>
+      
         </div>
       </div>
     </div>

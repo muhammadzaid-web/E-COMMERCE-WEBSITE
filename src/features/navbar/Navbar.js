@@ -27,16 +27,16 @@ const navigation = [
   { name: "Team", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: 'Your Profile', link: '/profile' },
-  { name: 'My Orders', link: '/orders' },
-  { name: "Sign out", link: "/login" },
+  { name: "My Profile", link: "/profile" },
+  { name: "My Orders", link: "/orders" },
+  { name: "Log out", link: "/logout" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ children,title }) {
+export default function Navbar({ children, title }) {
   const items = useSelector(selectItem);
   return (
     <div className="bg-gray-100">
@@ -45,14 +45,14 @@ export default function Navbar({ children,title }) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
-                <Link to='/' >
-                <div className="shrink-0">
-                  <img
-                    alt="Your Company"
-                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                    className="size-8"
-                  />
-                </div>
+                <Link to="/">
+                  <div className="shrink-0">
+                    <img
+                      alt="Your Company"
+                      src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                      className="size-8"
+                    />
+                  </div>
                 </Link>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
@@ -81,16 +81,18 @@ export default function Navbar({ children,title }) {
                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <Link to="/cart">
-                    <span className="absolute -inset-1.5" />
-                      
-                        <ShoppingCartIcon
-                          aria-hidden="true"
-                          className="size-6"
-                        />
-                      
-                      {items.length>0 && <span className="absolute -top-[.2rem] left-4 items-center rounded-xl bg-blue-100 px-1 text-[.6rem] font-medium text-blue-800 ring-1 ring-inset ring-blue-700/10">
-                        {items.length}
-                      </span>}
+                      <span className="absolute -inset-1.5" />
+
+                      <ShoppingCartIcon aria-hidden="true" className="size-6" />
+
+                      {items.length > 0 && (
+                      <>
+                        <span className="absolute -top-[.2rem] left-4 h-4 w-4 rounded-full bg-blue-300 opacity-75 animate-ping"></span>
+                        <span className="absolute -top-[.2rem] left-4 h-4 w-4 flex items-center justify-center rounded-full bg-blue-100 text-[.6rem] font-medium text-cyan-900 ring-1 ring-inset ring-blue-700/10">
+                          {items.length}
+                        </span>
+                      </>
+                    )}
                     </Link>
                   </button>
 
@@ -180,20 +182,24 @@ export default function Navbar({ children,title }) {
                   </div>
                 </div>
                 <Link to="/cart">
-                <button
-                  type="button"
-                  className="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  
-                    
-                      <ShoppingCartIcon aria-hidden="true" className="size-6" />
-                    
-                    {items.length>0 && <span className="absolute -top-[.3rem] left-4 items-center rounded-xl bg-blue-100 px-1 text-[.6rem] font-medium text-blue-800 ring-1 ring-inset ring-blue-700/10">
-                      {items.length}
-                    </span>}
-                </button>
-                  </Link>
+                  <button
+                    type="button"
+                    className="relative ml-auto shrink-0 rounded-full bg-gray-800  p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="absolute -inset-1.5" />
+
+                    <ShoppingCartIcon aria-hidden="true" className="size-6" />
+
+                    {items.length > 0 && (
+                      <>
+                        <span className="absolute -top-[.2rem] left-4 h-3 w-3 rounded-full bg-blue-300 opacity-75 animate-ping"></span>
+                        <span className="absolute -top-[.2rem] left-4 h-3 w-3 flex items-center justify-center rounded-full bg-blue-100 text-[.6rem] font-medium text-cyan-900 ring-1 ring-inset ring-blue-700/10">
+                          {items.length}
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </Link>
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (

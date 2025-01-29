@@ -78,3 +78,9 @@ export function checkUser(loginInfo) {
   });
 }
 
+export function signOut(){
+  return new Promise(async (resolve) => {
+    //TODO : on server we will remove user session
+    resolve({ data:"success" });
+  });
+}

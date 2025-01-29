@@ -19,9 +19,11 @@ export default function Login() {
     <div>
       {user && <Navigate to='/' replace={true}></Navigate>}
           
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8 ">
+        <div className="sm:px-auto sm:w-full sm:max-w-sm lg:w-md backdrop-filter-blur bg-black/10 p-4 rounded-3xl">
+          
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Link to='/'>
+        <Link to='/'>
           <img
             alt="Your Company"
             src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
@@ -35,7 +37,7 @@ export default function Login() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
-            // noValidate
+            noValidate
             onSubmit={handleSubmit((data) => {
               dispatch(checkUserAsync({email:data.email,password:data.password}))
               console.log(data);
@@ -78,12 +80,12 @@ export default function Login() {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgot-password"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -128,6 +130,7 @@ export default function Login() {
             </Link>
           </p>
         </div>
+      </div>
       </div>
     </div>
   );
