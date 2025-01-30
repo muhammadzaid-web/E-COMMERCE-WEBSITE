@@ -60,8 +60,11 @@ console.log(user.addresses.map((address)=>address.name));
       <div className="mx-auto mt-12 shadow-md rounded-md bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className=" px-4 py-6 sm:px-6">
           <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
-            Name: {user.addresses[0].name ? user.addresses[0].name : 'New User'}
+            Name: {user.addresses[0] ? user.addresses[0].name : 'New User'}
           </h1>
+          {user.role === "Admin" && <h1 className="text-2xl my-3 font-bold tracking-tight text-gray-700">
+            ( { user.role} )
+          </h1>}
           <h3 className="text-xl my-5 font-bold tracking-tight text-gray-900">
             email address : <span className='text-red-900'>
             {user.email}

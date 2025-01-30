@@ -15,16 +15,18 @@ import {
 import { Link } from "react-router";
 import { selectItem } from "../Cart/CartSlice";
 import { useSelector } from "react-redux";
+import { selectLoggedInUser } from "../auth/authSlice";
 
-const user = {
+const dummyuser = {
   name: "Tom Cook",
   email: "tom@example.com",
   imageUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
+  { name: "Dashboard", link: "/", user: "user" },
+  { name: "Team", link: "/", user: "user" },
+  { name: "Admin", link: "/admin", user: "Admin" },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/profile" },
@@ -38,6 +40,8 @@ function classNames(...classes) {
 
 export default function Navbar({ children, title }) {
   const items = useSelector(selectItem);
+  const user = useSelector(selectLoggedInUser);
+
   return (
     <div className="bg-gray-100">
       <div className="min-h-full">
@@ -56,21 +60,23 @@ export default function Navbar({ children, title }) {
                 </Link>
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+                    {navigation.map((item) =>
+                      user.role === item.user ? (
+                        <Link
+                          key={item.name}
+                          to={item.link}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      ) : null
+                    )}
                   </div>
                 </div>
               </div>
@@ -86,13 +92,13 @@ export default function Navbar({ children, title }) {
                       <ShoppingCartIcon aria-hidden="true" className="size-6" />
 
                       {items.length > 0 && (
-                      <>
-                        <span className="absolute -top-[.2rem] left-4 h-4 w-4 rounded-full bg-blue-300 opacity-75 animate-ping"></span>
-                        <span className="absolute -top-[.2rem] left-4 h-4 w-4 flex items-center justify-center rounded-full bg-blue-100 text-[.6rem] font-medium text-cyan-900 ring-1 ring-inset ring-blue-700/10">
-                          {items.length}
-                        </span>
-                      </>
-                    )}
+                        <>
+                          <span className="absolute -top-[.2rem] left-4 h-4 w-4 rounded-full bg-blue-300 opacity-75 animate-ping"></span>
+                          <span className="absolute -top-[.2rem] left-4 h-4 w-4 flex items-center justify-center rounded-full bg-blue-100 text-[.6rem] font-medium text-cyan-900 ring-1 ring-inset ring-blue-700/10">
+                            {items.length}
+                          </span>
+                        </>
+                      )}
                     </Link>
                   </button>
 
@@ -104,7 +110,7 @@ export default function Navbar({ children, title }) {
                         <span className="sr-only">Open user menu</span>
                         <img
                           alt=""
-                          src={user.imageUrl}
+                          src={dummyuser.imageUrl}
                           className="size-8 rounded-full"
                         />
                       </MenuButton>
@@ -147,38 +153,41 @@ export default function Navbar({ children, title }) {
 
           <DisclosurePanel className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              {navigation.map((item) => (
-                <DisclosureButton
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  aria-current={item.current ? "page" : undefined}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                >
-                  {item.name}
+                  <DisclosureButton>
+              {navigation.map((item) =>
+                user.role === item.user ? (
+                  <Link
+                  to={item.link}
+                    key={item.name}
+                    as="a"
+                    aria-current={item.current ? "page" : undefined}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
+                  >
+                     {item.name}</Link>
+                  ) : null
+                )}
                 </DisclosureButton>
-              ))}
             </div>
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5">
                 <div className="shrink-0">
                   <img
                     alt=""
-                    src={user.imageUrl}
+                    src={dummyuser.imageUrl}
                     className="size-10 rounded-full"
                   />
                 </div>
                 <div className="ml-3">
                   <div className="text-base/5 font-medium text-white">
-                    {user.name}
+                    {dummyuser.name}
                   </div>
                   <div className="text-sm font-medium text-gray-400">
-                    {user.email}
+                    {dummyuser.email}
                   </div>
                 </div>
                 <Link to="/cart">

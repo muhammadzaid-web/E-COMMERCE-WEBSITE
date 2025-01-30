@@ -10,8 +10,8 @@ module.exports = {
       },
       backgroundImage: {
         'custom-radial1': `
-        radial-gradient(circle at 20% 30%, rgba(0, 80, 200 , .7), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(40, 40, 255  , .7), transparent 40%)
+        radial-gradient(circle at 20% 80%, rgba(0, 80, 200 , .7), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(40, 40, 255  , .7), transparent 40%)
         `,
         'custom-radial2': `
           radial-gradient(circle at 80% 70%, rgba(0, 80, 250 , .7), transparent 40%),
