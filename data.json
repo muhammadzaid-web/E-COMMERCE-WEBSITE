@@ -189,7 +189,7 @@
       "title": "Red Lipstick",
       "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
       "category": "beauty",
-      "price": 12.99,
+      "price": 11,
       "discountPercentage": 19.03,
       "rating": 2.51,
       "stock": 68,
@@ -240,7 +240,10 @@
         "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
       },
       "images": [
-        "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png"
+        "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png",
+        "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
     },
@@ -6431,7 +6434,7 @@
         "pinCode": "247001"
       },
       "selectedPayment": "cash",
-      "status": "pending"
+      "status": "dispatched"
     },
     {
       "id": "bb29",
@@ -6527,7 +6530,7 @@
         "pinCode": "247001"
       },
       "selectedPayment": "card",
-      "status": "pending"
+      "status": "cancelled"
     },
     {
       "id": "dfa5",
@@ -6687,7 +6690,7 @@
         "pinCode": "247001"
       },
       "selectedPayment": "card",
-      "status": "pending"
+      "status": "delivered"
     },
     {
       "id": "de47",
@@ -6857,7 +6860,7 @@
         "street": "saifii street"
       },
       "selectedPayment": "cash",
-      "status": "pending"
+      "status": "dispatched"
     },
     {
       "id": "d2ed",
